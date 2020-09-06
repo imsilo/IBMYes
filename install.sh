@@ -45,7 +45,7 @@ EOF
                 "streamSettings": {
                     "network":"ws",
                     "wsSettings": {
-                        "path": "；"1MqeH63SlKXzJOwv"
+                        "path": "1MqeH63SlKXzJOwv"
                     }
                 }
             }
