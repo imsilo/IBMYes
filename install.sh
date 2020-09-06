@@ -24,7 +24,6 @@ create_mainfest_file(){
       memory: ${IBM_MEM_SIZE}M
 EOF
 
-
     cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/v2ray/config.json  << EOF
     {
         "inbounds": [
