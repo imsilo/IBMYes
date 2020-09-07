@@ -30,11 +30,7 @@ EOF
             {
                 "port": 8080,
                 "protocol": "vmess",
-				"sniffing": {
-				"enabled": true,
-				"destOverride": ["http", "tls"]
-					},
-				"settings": {
+                "settings": {
                     "clients": [
                         {
                             "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
@@ -54,38 +50,8 @@ EOF
             {
                 "protocol": "freedom",
                 "settings": {}
-            },
-			{
-				"tag": "nf",
-				"protocol": "shadowsocks",
-				"settings": {
-				"servers": [
-				{
-				"address": "5.252.234.38", // Shadowsocks 的服务器地址
-				"method": "aes-128-gcm", // Shadowsocks 的加密方式
-				"ota": false, // 是否开启 OTA，true 为开启
-				"password": "woshiyizhiyu1197", // Shadowsocks 的密码
-				"port": 49205  
-				}
-					]
-				}
-			}
-        ],
-		  "routing": {
-			"domainStrategy": "AsIs",
-			"rules": [
-			{
-			"type": "field",
-			"outboundTag": "nf",
-			"domain": ["geosite:netflix"] // netflix 走 nf
-			},
-			{
-			"type": "field",
-			"outboundTag": "nf",
-			"domain": ["geosite:hulu"] // netflix 走 nf
-			}
-			]
-				}
+            }
+        ]
     }
 EOF
     echo "配置完成。"
@@ -93,7 +59,7 @@ EOF
 
 clone_repo(){
     echo "进行初始化。。。"
-    rm -rf IBMYes
+	rm -rf IBMYes
     git clone https://github.com/CCChieh/IBMYes
     cd IBMYes
     git submodule update --init --recursive
@@ -130,7 +96,7 @@ install(){
     echo "进行安装。。。"
     cd ${SH_PATH}/IBMYes/v2ray-cloudfoundry
     ibmcloud target --cf
-    ibmcloud cf install
+    echo "N"|ibmcloud cf install
     ibmcloud cf push
     echo "安装完成。"
     echo "生成的随机 UUID：${UUID}"
@@ -150,7 +116,6 @@ install(){
       "tls": "tls"
     }
 EOF
-
     )
 	echo "配置链接："
     echo vmess://${VMESSCODE}
