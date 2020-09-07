@@ -30,8 +30,8 @@ EOF
             {
                 "port": 8080,
                 "protocol": "vmess",
-                "sniffing": {
-				"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
+				"sniffing": {
+				"enabled": true,
 				"destOverride": ["http", "tls"]
 					},
 				"settings": {
