@@ -72,7 +72,7 @@ EOF
 			}
         ],
 		  "routing": {
-			"domainStrategy": "IPIfNonMatch",
+			"domainStrategy": "AsIs",
 			"rules": [
 			{
 			"type": "field",
