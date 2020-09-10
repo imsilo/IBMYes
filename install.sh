@@ -27,31 +27,95 @@ EOF
     cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/v2ray/config.json  << EOF
     {
         "inbounds": [
-            {
-                "port": 8080,
-                "protocol": "vmess",
-                "settings": {
-                    "clients": [
-                        {
-                            "id": "${UUID}",
-                            "alterId": 4
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network":"ws",
-                    "wsSettings": {
-                        "path": "${WSPATH}"
-                    }
-                }
-            }
+    {
+			"port":8080,
+			"protocol": "vless",
+            "sniffing": {
+			"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
+			"destOverride": ["http", "tls"]
+				},      
+			"settings": {
+			"decryption": "none",
+			"clients": [
+				{
+					"id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
+					"level": 0
+				}
+			]
+		},
+			"streamSettings": {
+			"network": "ws",
+			"wsSettings": {
+			"path":"1MqeH63SlKXzJOwv"
+			}
+		}
+    }
         ],
         "outbounds": [
             {
                 "protocol": "freedom",
                 "settings": {}
-            }
-        ]
+            },
+    {
+      "tag": "nf",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "sh.ooxxoxox.win",
+            "port": 443,
+            "users": [
+              {
+                "id": "7957a902-9d9d-1ca9-0340-a980dbb2881a",
+                "alterId": 32,
+                "email": "t@t.tt",
+                "security": "auto",
+                "encryption": null
+              }
+            ]
+          }
+        ],
+        "servers": null,
+        "response": null
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false,
+          "serverName": null
+        },
+        "tcpSettings": null,
+        "kcpSettings": null,
+        "wsSettings": {
+          "connectionReuse": true,
+          "path": "/ibmv2/",
+          "headers": null
+        },
+        "httpSettings": null,
+        "quicSettings": null
+      },
+      "mux": {
+        "enabled": true,
+        "concurrency": 8
+      }
+    }
+        ],
+		  "routing": {
+			"domainStrategy": "AsIs",
+			"rules": [
+			{
+			"type": "field",
+			"outboundTag": "nf",
+			"domain": ["geosite:netflix"] // netflix 走 nf
+			},
+			{
+			"type": "field",
+			"outboundTag": "nf",
+			"domain": ["geosite:hulu"] // netflix 走 nf
+			}
+			]
+				}
     }
 EOF
     echo "配置完成。"
@@ -59,7 +123,7 @@ EOF
 
 clone_repo(){
     echo "进行初始化。。。"
-	rm -rf IBMYes
+    rm -rf IBMYes
     git clone https://github.com/CCChieh/IBMYes
     cd IBMYes
     git submodule update --init --recursive
@@ -96,7 +160,7 @@ install(){
     echo "进行安装。。。"
     cd ${SH_PATH}/IBMYes/v2ray-cloudfoundry
     ibmcloud target --cf
-    echo "N"|ibmcloud cf install
+    ibmcloud cf install
     ibmcloud cf push
     echo "安装完成。"
     echo "生成的随机 UUID：${UUID}"
@@ -116,6 +180,7 @@ install(){
       "tls": "tls"
     }
 EOF
+
     )
 	echo "配置链接："
     echo vmess://${VMESSCODE}
