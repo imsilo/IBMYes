@@ -27,29 +27,28 @@ EOF
     cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/v2ray/config.json  << EOF
     {
         "inbounds": [
-    {
-			"port":8080,
-			"protocol": "vless",
-            "sniffing": {
-			"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
-			"destOverride": ["http", "tls"]
-				},
-			"settings": {
-			"decryption": "none",
-			"clients": [
-				{
-					"id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
-					"level": 0
-				}
-			]
-		},
-			"streamSettings": {
-			"network": "ws",
-			"wsSettings": {
-			"path":"1MqeH63SlKXzJOwv"
-			}
-		}
-    }
+            {
+                "port": 8080,
+                "protocol": "vmess",
+                "sniffing": {
+				"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
+				"destOverride": ["http", "tls"]
+					},
+				"settings": {
+                    "clients": [
+                        {
+                            "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
+                            "alterId": 4
+                        }
+                    ]
+                },
+                "streamSettings": {
+                    "network":"ws",
+                    "wsSettings": {
+                        "path": "1MqeH63SlKXzJOwv"
+                    }
+                }
+            }
         ],
         "outbounds": [
             {
@@ -107,12 +106,10 @@ EOF
 			{
 			"type": "field",
 			"outboundTag": "nf",
-			"domain": ["geosite:netflix"] // netflix 走 nf
-			},
-			{
-			"type": "field",
-			"outboundTag": "nf",
-			"domain": ["geosite:hulu"] // netflix 走 nf
+			"domain": [
+			"geosite:netflix",
+			"geosite:hulu"
+			]
 			}
 			]
 				}
