@@ -66,7 +66,7 @@ EOF
             "users": [
               {
                 "id": "7957a902-9d9d-1ca9-0340-a980dbb2881a",
-                "alterId": 0,
+                "alterId": 2,
                 "security": "auto"
               }
             ]
