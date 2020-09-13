@@ -27,30 +27,28 @@ EOF
     cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/v2ray/config.json  << EOF
     {
         "inbounds": [
-    {
-    "port":8080,
-      "tag": "ibm",
-      "protocol": "vless",
-      "sniffing": {
-	  "enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
-	  "destOverride": ["http", "tls"]
+            {
+                "port": 8080,
+                "protocol": "vmess",
+                "sniffing": {
+				"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
+				"destOverride": ["http", "tls"]
 					},
-	  "settings": {
-        "decryption": "none",
-        "clients": [
-          {
-            "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
-            "level": 1
-          }
-        ]
-      }
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-	  "path":"1MqeH63SlKXzJOwv"
-        }
-      }
-    }
+				"settings": {
+                    "clients": [
+                        {
+                            "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
+                            "alterId": 4
+                        }
+                    ]
+                },
+                "streamSettings": {
+                    "network":"ws",
+                    "wsSettings": {
+                        "path": "1MqeH63SlKXzJOwv"
+                    }
+                }
+            }
         ],
         "outbounds": [
             {
@@ -79,8 +77,7 @@ EOF
         "network": "ws",
         "security": "tls",
         "tlsSettings": {
-          "allowInsecure": false,
-          "serverName": null
+          "allowInsecure": false
         },
         "wsSettings": {
           "connectionReuse": true,
