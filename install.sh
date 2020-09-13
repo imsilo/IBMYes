@@ -27,28 +27,27 @@ EOF
     cat >  ${SH_PATH}/IBMYes/v2ray-cloudfoundry/v2ray/config.json  << EOF
     {
         "inbounds": [
-            {
-                "port": 8080,
-                "protocol": "vmess",
-                "sniffing": {
-				"enabled": true, //一定要开启 sniffing，V2Ray 才能识别 Netflix 的流量
-				"destOverride": ["http", "tls"]
-					},
-				"settings": {
-                    "clients": [
-                        {
-                            "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
-                            "alterId": 4
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network":"ws",
-                    "wsSettings": {
-                        "path": "1MqeH63SlKXzJOwv"
-                    }
-                }
-            }
+    {
+    "port":8080,
+      "listen": "127.0.0.1",
+      "tag": "ibm",
+      "protocol": "vless",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "id": "3c433c91-036d-492b-ae2a-eb0d39da33cb",
+            "level": 1
+          }
+        ]
+      }
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+	  "path":"1MqeH63SlKXzJOwv"
+        }
+      }
+    }
         ],
         "outbounds": [
             {
